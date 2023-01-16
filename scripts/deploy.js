@@ -1,11 +1,10 @@
-const ethers = require('ethers');
-require('dotenv').config();
+const ethers = require("ethers");
+require("dotenv").config();
 
 async function main() {
-
   const url = process.env.GOERLI_URL;
 
-  let artifacts = await hre.artifacts.readArtifact("Faucet");
+  let artifacts = await hre.artifacts.readArtifact("ModifyVariable");
 
   const provider = new ethers.providers.JsonRpcProvider(url);
 
@@ -14,18 +13,22 @@ async function main() {
   let wallet = new ethers.Wallet(privateKey, provider);
 
   // Create an instance of a Faucet Factory
-  let factory = new ethers.ContractFactory(artifacts.abi, artifacts.bytecode, wallet);
+  let factory = new ethers.ContractFactory(
+    artifacts.abi,
+    artifacts.bytecode,
+    wallet
+  );
 
-  let faucet = await factory.deploy();
+  let modifyVariable = await factory.deploy(10, "Bob");
 
-  console.log("Faucet address:", faucet.address);
+  console.log("modifyVariable address:", modifyVariable.address);
 
-  await faucet.deployed();
+  await modifyVariable.deployed();
 }
 
 main()
   .then(() => process.exit(0))
-  .catch(error => {
+  .catch((error) => {
     console.error(error);
     process.exit(1);
-});
+  });
