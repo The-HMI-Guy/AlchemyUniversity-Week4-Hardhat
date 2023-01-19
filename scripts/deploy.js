@@ -4,7 +4,7 @@ require("dotenv").config();
 async function main() {
   const url = process.env.GOERLI_URL;
 
-  let artifacts = await hre.artifacts.readArtifact("ModifyVariable");
+  let artifacts = await hre.artifacts.readArtifact("Contracts");
 
   const provider = new ethers.providers.JsonRpcProvider(url);
 
@@ -19,11 +19,11 @@ async function main() {
     wallet
   );
 
-  let modifyVariable = await factory.deploy(10, "Bob");
+  let contract = await factory.deploy();
 
-  console.log("modifyVariable address:", modifyVariable.address);
+  console.log("contract address:", contract.address);
 
-  await modifyVariable.deployed();
+  await contract.deployed();//wait for it to be mined and included in a block
 }
 
 main()
