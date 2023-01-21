@@ -2,9 +2,11 @@
 pragma solidity ^0.8.4;
 
 contract Contract {
-    uint256 public x;
+    function emitWinner(address winner) external {
+        bytes4 signature = bytes4(keccak256("attempt()"));
 
-    function changeX(uint256 _x) external {
-        x = _x;
+        (bool success, ) = winner.call(abi.encodePacked(signature));
+
+        require(success);
     }
 }

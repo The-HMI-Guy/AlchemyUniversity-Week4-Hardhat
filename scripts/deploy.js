@@ -4,7 +4,7 @@ require("dotenv").config();
 async function main() {
   const url = process.env.GOERLI_URL;
 
-  let artifacts = await hre.artifacts.readArtifact("Contracts");
+  let artifacts = await hre.artifacts.readArtifact("Contract");
 
   const provider = new ethers.providers.JsonRpcProvider(url);
 
@@ -23,7 +23,7 @@ async function main() {
 
   console.log("contract address:", contract.address);
 
-  await contract.deployed();//wait for it to be mined and included in a block
+  await contract.deployed(); //wait for it to be mined and included in a block
 }
 
 main()
