@@ -10,6 +10,7 @@ async function main() {
   );
   await tx.wait();
   console.log("The contract just emitted the winner. Please check Etherscan.");
+  //console.log("getSigner: ", await hre.ethers.getSigner());
 }
 
 main()
